@@ -1,0 +1,147 @@
+.field {
+  display: block;
+}
+
+.shell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border-radius: var(--r-md);
+  background: var(--mid);
+  box-shadow: inset 0 0 0 1px var(--hair-strong);
+  transition: box-shadow 0.3s var(--ease-soft), background 0.3s var(--ease-soft);
+}
+
+.shell:focus-within {
+  background: var(--panel);
+  box-shadow: inset 0 0 0 1px var(--hair-brass-lit);
+}
+
+.icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: grid;
+  place-items: center;
+  color: var(--sage-faint);
+  pointer-events: none;
+  transition: color 0.45s var(--ease-soft);
+}
+
+.shell:focus-within .icon { color: var(--brass); }
+
+.input {
+  flex: 1 1 auto;
+  width: 100%;
+  min-width: 0;
+  padding: 25px 16px 9px;
+  border: none;
+  background: none;
+  font-size: 15.5px;
+  line-height: 20px;
+  font-weight: 300;
+  letter-spacing: 0.005em;
+  color: var(--pearl);
+}
+
+.input[data-has-icon] { padding-left: 46px; }
+.input:focus { outline: none; }
+
+/* Chrome paints its own slab of blue over autofilled inputs. An inset shadow
+   the size of the field is the only reliable way to keep the surface ours. */
+.input:-webkit-autofill,
+.input:-webkit-autofill:hover,
+.input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--pearl);
+  -webkit-box-shadow: 0 0 0 60px var(--mid) inset;
+  caret-color: var(--pearl);
+  transition: background-color 9999s ease-out;
+}
+
+/*
+ * Deterministic, not relative: the shell's height is fixed by the input's
+ * own padding + line-height above (25 + 20 + 9 = 54px), so both label
+ * states are plain pixel offsets against that known number rather than a
+ * percentage-of-its-own-size transform — the previous version floated the
+ * label to `translateY(-168%)` of its own line-height, which put it right
+ * on top of the field's border instead of clearly above the typed text.
+ */
+.label {
+  position: absolute;
+  left: 17px;
+  top: 25px; /* matches .input's own padding-top exactly, at rest */
+  font-size: 15.5px;
+  line-height: 20px;
+  color: var(--sage-dim);
+  pointer-events: none;
+  transition: top 0.2s var(--ease), font-size 0.2s var(--ease), line-height 0.2s var(--ease),
+    color 0.25s var(--ease-soft);
+}
+
+.input[data-has-icon] + .label { left: 46px; }
+
+/* Riding up happens on focus, or whenever there is something to sit above.
+   6px to 20px leaves a clear 5px gap before the input's own text starts
+   at 25px — no overlap with the border above or the value below, at any
+   zoom level, because none of these numbers depend on each other. */
+.input:focus + .label,
+.input:not(:placeholder-shown) + .label {
+  top: 6px;
+  font-size: 11px;
+  line-height: 14px;
+  color: var(--brass);
+}
+
+.input:not(:focus):not(:placeholder-shown) + .label { color: var(--sage-faint); }
+
+.reveal {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin-right: 4px;
+  border-radius: 50%;
+  color: var(--sage-faint);
+  transition: color 0.34s var(--ease-soft), background 0.34s var(--ease-soft);
+}
+
+.reveal:hover {
+  color: var(--brass-hi);
+  background: rgba(216, 180, 92, 0.08);
+}
+
+/* ---------------------------- validity ---------------------------- */
+
+.invalid .shell {
+  box-shadow: inset 0 0 0 1px rgba(232, 168, 139, 0.5);
+}
+
+.invalid .shell:focus-within {
+  box-shadow: inset 0 0 0 1px rgba(232, 168, 139, 0.75);
+}
+
+.invalid .input:focus + .label,
+.invalid .input:not(:placeholder-shown) + .label { color: #e8a88b; }
+
+.error,
+.hint {
+  margin-top: 8px;
+  padding-left: 2px;
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+
+.hint { color: var(--sage-faint); }
+
+.error {
+  color: #e8a88b;
+  animation: nudge 0.5s var(--ease);
+}
+
+@keyframes nudge {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-3px); }
+  75% { transform: translateX(3px); }
+}

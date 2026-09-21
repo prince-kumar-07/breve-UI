@@ -1,0 +1,202 @@
+.section { composes: section from "./Shared.module.css"; }
+
+.inner {
+  composes: shell from "./Shared.module.css";
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: clamp(36px, 6vw, 76px);
+  align-items: center;
+}
+
+.eyebrow { composes: eyebrow from "./Shared.module.css"; }
+.heading {
+  composes: heading from "./Shared.module.css";
+  margin-top: 16px;
+}
+.body { composes: body from "./Shared.module.css"; }
+
+.copy { composes: reveal from "./Shared.module.css"; transition-delay: 0.08s; }
+.copyIn { composes: revealIn from "./Shared.module.css"; }
+
+/* ----------------------------- panel ----------------------------- */
+
+.panel {
+  composes: reveal from "./Shared.module.css";
+  padding: 28px 26px 22px;
+  border-radius: var(--r-lg);
+  background: var(--mid);
+  box-shadow: inset 0 0 0 1px var(--hair);
+}
+
+.panelIn { composes: revealIn from "./Shared.module.css"; }
+
+/* ------------------------------ head ------------------------------ */
+
+.head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.headLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  letter-spacing: var(--eyebrow-track);
+  text-transform: uppercase;
+  color: var(--sage);
+}
+
+.live {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--brass);
+}
+
+.head strong {
+  display: block;
+  margin-top: 8px;
+  font-family: var(--display);
+  font-size: 36px;
+  font-weight: 400;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  color: var(--pearl);
+}
+
+.delta {
+  padding: 5px 11px;
+  border-radius: var(--r-pill);
+  background: rgba(216, 180, 92, 0.1);
+  font-size: 12.5px;
+  font-variant-numeric: tabular-nums;
+  color: var(--brass-hi);
+}
+
+/* ------------------------------ plot ------------------------------ */
+
+.plot {
+  margin-top: 26px;
+}
+
+.bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
+  height: 150px;
+}
+
+.slot {
+  position: relative;
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+}
+
+.bar {
+  width: 100%;
+  border-radius: 2px 2px 0 0;
+  background: var(--brass);
+  opacity: 0.75;
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.6s var(--ease), opacity 0.2s;
+}
+
+.panelIn .bar { transform: scaleY(1); }
+.slot:hover .bar { opacity: 1; }
+
+/* readout, shown only while its column is under the cursor */
+.tip {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 8px);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  padding: 6px 10px;
+  border-radius: var(--r-xs);
+  background: var(--void);
+  font-size: 11px;
+  line-height: 1.3;
+  white-space: nowrap;
+  color: var(--sage);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+
+.tip b {
+  font-family: var(--display);
+  font-size: 16px;
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+  color: var(--brass-hi);
+}
+
+.slot:hover .tip { opacity: 1; }
+
+.axis {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+  font-size: 11.5px;
+  color: var(--sage-faint);
+}
+
+/* ----------------------------- sources ----------------------------- */
+
+.sources {
+  margin-top: 28px;
+  border-top: 1px solid var(--hair);
+}
+
+.source {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--hair);
+  font-size: 14px;
+}
+
+.source b { font-weight: 400; }
+.source i { font-style: normal; color: var(--sage); font-variant-numeric: tabular-nums; }
+
+.sourceBar {
+  grid-column: 1 / -1;
+  height: 1px;
+  background: var(--brass);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.7s var(--ease);
+}
+
+.panelIn .sourceBar { transform: scaleX(var(--w)); }
+
+/* --------------------------- assurances --------------------------- */
+
+.assurances {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 28px;
+}
+
+.assurances li {
+  padding: 6px 13px;
+  border-radius: var(--r-pill);
+  box-shadow: inset 0 0 0 1px var(--hair);
+  font-size: 12.5px;
+  color: var(--sage);
+}
+
+@media (max-width: 920px) {
+  .inner { grid-template-columns: 1fr; }
+}

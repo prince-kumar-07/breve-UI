@@ -1,0 +1,16 @@
+# SPA fallback — the whole reason a refresh on /login works.
+#
+# Brevé is one HTML file with a client-side router. Netlify only knows about
+# /index.html, so a hard refresh on /login or /signup would otherwise be a
+# genuine 404: there is no /login file on disk to serve.
+#
+# Netlify checks for a matching static file BEFORE applying this rule, so real
+# assets (/assets/*, /favicon.svg) are still served normally and only unmatched
+# paths fall through to the app. Status 200 rewrites rather than redirects, so
+# the URL in the address bar stays /login for React Router to read.
+#
+# This lives in public/ rather than netlify.toml on purpose: everything in
+# public/ is copied into dist/, so the rule travels with the build and applies
+# whether you deploy from Git or drag the dist folder onto Netlify.
+
+/*    /index.html   200

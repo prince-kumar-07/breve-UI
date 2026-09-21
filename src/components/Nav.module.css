@@ -1,0 +1,169 @@
+.bar {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 40;
+  transition: background 0.5s var(--ease-soft), box-shadow 0.5s var(--ease-soft);
+}
+
+.lifted {
+  background: rgba(3, 32, 26, 0.7);
+  backdrop-filter: var(--blur);
+  -webkit-backdrop-filter: var(--blur);
+  box-shadow: 0 1px 0 var(--hair);
+}
+
+.inner {
+  composes: shell from "./Shared.module.css";
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  height: 76px;
+}
+
+/* ------------------------------ mark ------------------------------ */
+
+.mark {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.word {
+  font-family: var(--display);
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--pearl);
+  transition: color 0.4s var(--ease-soft);
+}
+
+.mark:hover .word { color: var(--brass-hi); }
+
+/* ------------------------------ links ------------------------------ */
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.link {
+  position: relative;
+  font-size: 14px;
+  color: var(--sage);
+  transition: color 0.3s var(--ease-soft);
+}
+
+.link:hover { color: var(--pearl); }
+
+.hello {
+  font-size: 14px;
+  color: var(--sage-faint);
+  white-space: nowrap;
+}
+
+.cta {
+  padding: 9px 20px;
+  border-radius: var(--r-pill);
+  background: var(--brass);
+  color: #14291f;
+  font-size: 14px;
+  font-weight: 500;
+  transform: translate3d(var(--mx, 0px), var(--my, 0px), 0);
+  transition: background 0.3s var(--ease-soft), transform 0.5s var(--ease-spring);
+}
+
+.cta:hover { background: var(--brass-hi); }
+
+/* ------------------------------ rail ------------------------------ */
+
+.rail {
+  position: absolute;
+  inset: auto 0 0;
+  height: 1px;
+  background: var(--hair);
+  opacity: 0;
+  transition: opacity 0.5s var(--ease-soft);
+}
+
+.lifted .rail { opacity: 1; }
+
+.rail i {
+  display: block;
+  height: 100%;
+  background: var(--brass);
+  transform: scaleX(var(--progress, 0));
+  transform-origin: left;
+}
+
+/* ----------------------------- toggle ----------------------------- */
+
+.toggle {
+  display: none;
+  position: relative;
+  width: 36px;
+  height: 36px;
+}
+
+.toggle span {
+  position: absolute;
+  left: 50%;
+  width: 16px;
+  height: 1px;
+  margin-left: -8px;
+  background: var(--pearl);
+  transition: transform 0.4s var(--ease), opacity 0.25s var(--ease-soft);
+}
+
+.toggle span:first-child { top: 16px; }
+.toggle span:last-child { top: 21px; }
+
+.toggleOpen span:first-child { transform: translateY(2.5px) rotate(45deg); }
+.toggleOpen span:last-child { transform: translateY(-2.5px) rotate(-45deg); }
+
+/* ------------------------------ sheet ------------------------------ */
+
+.panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  overflow: hidden;
+  background: rgba(3, 32, 26, 0.96);
+  backdrop-filter: var(--blur);
+  -webkit-backdrop-filter: var(--blur);
+  transition: grid-template-rows 0.5s var(--ease);
+}
+
+.panelInner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.panelInner > a,
+.panelInner > button {
+  display: block;
+  width: 100%;
+  padding: 0 var(--gutter);
+  border-top: 1px solid var(--hair);
+  font-size: 17px;
+  text-align: left;
+  line-height: 56px;
+  color: var(--sage);
+  opacity: 0;
+  transition: opacity 0.4s var(--ease-soft), color 0.3s;
+  transition-delay: calc(var(--i) * 40ms);
+}
+
+.panelOpen { grid-template-rows: 1fr; }
+.panelOpen .panelInner > a,
+.panelOpen .panelInner > button { opacity: 1; }
+
+@media (max-width: 880px) {
+  .links { display: none; }
+  .toggle { display: block; }
+  .inner { height: 68px; }
+}
+
+@media (min-width: 881px) {
+  .panel { display: none; }
+}

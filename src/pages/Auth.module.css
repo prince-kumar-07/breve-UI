@@ -1,0 +1,323 @@
+/* Shared by /login and /signup — one form language for both routes. */
+
+.form {
+  position: relative;
+  margin-top: 28px;
+}
+
+.fields {
+  display: grid;
+  gap: 16px;
+}
+
+.pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+/* ----------------------------- options ----------------------------- */
+
+.options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+
+.check {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--sage);
+  cursor: pointer;
+  user-select: none;
+}
+
+.check input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.box {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  margin-top: 1px;
+  border-radius: 5px;
+  background: var(--void);
+  box-shadow: inset 0 0 0 1px var(--hair-strong);
+  color: #13271d;
+  transition: background 0.25s var(--ease-soft), box-shadow 0.25s var(--ease-soft);
+}
+
+.box svg {
+  opacity: 0;
+  transform: scale(0.7);
+  transition: opacity 0.2s var(--ease-soft), transform 0.2s var(--ease);
+}
+
+.check input:checked + .box {
+  background: var(--brass);
+  box-shadow: none;
+}
+
+.check input:checked + .box svg { opacity: 1; transform: none; }
+.check input:focus-visible + .box { outline: 1px solid var(--brass); outline-offset: 3px; }
+
+.check a {
+  color: var(--brass-hi);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--hair-brass);
+  transition: text-decoration-color 0.34s var(--ease-soft);
+}
+
+.check a:hover { text-decoration-color: var(--brass); }
+
+.forgot {
+  font-size: 13.5px;
+  color: var(--sage-dim);
+  transition: color 0.34s var(--ease-soft);
+}
+
+.forgot:hover { color: var(--brass-hi); }
+
+/* ----------------------------- submit ----------------------------- */
+
+.submit {
+  width: 100%;
+  margin-top: 24px;
+  padding: 15px;
+  border-radius: var(--r-sm);
+  background: var(--brass);
+  color: #13271d;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  transition: background 0.25s var(--ease-soft), transform 0.25s var(--ease), opacity 0.25s;
+}
+
+.submit span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+}
+
+.submit:hover:not(:disabled) { background: var(--brass-hi); }
+.submit:active:not(:disabled) { transform: translateY(1px); }
+
+.submit:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.spinner {
+  width: 14px;
+  height: 14px;
+  border: 1.6px solid rgba(19, 39, 29, 0.3);
+  border-top-color: #13271d;
+  border-radius: 50%;
+  animation: spin 0.72s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ----------------------------- banner ----------------------------- */
+
+.banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 20px;
+  padding: 12px 15px;
+  border-radius: var(--r-sm);
+  font-size: 13.5px;
+  line-height: 1.55;
+  animation: drop 0.5s var(--ease) both;
+}
+
+@keyframes drop {
+  from { opacity: 0; transform: translate3d(0, -6px, 0); }
+  to { opacity: 1; transform: none; }
+}
+
+.bannerBad {
+  background: rgba(232, 168, 139, 0.1);
+  box-shadow: inset 0 0 0 1px rgba(232, 168, 139, 0.34);
+  color: #f0bda4;
+}
+
+.bannerGood {
+  background: rgba(127, 214, 168, 0.1);
+  box-shadow: inset 0 0 0 1px rgba(127, 214, 168, 0.32);
+  color: #a8e5c4;
+}
+
+.banner svg { flex: 0 0 auto; margin-top: 2px; }
+
+/* ----------------------------- divider ----------------------------- */
+
+.divider {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 14px;
+  margin-block: 26px;
+  font-size: 11px;
+  letter-spacing: var(--eyebrow-track);
+  text-transform: uppercase;
+  color: var(--sage-faint);
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--hair-strong));
+}
+
+.divider::after { background: linear-gradient(90deg, var(--hair-strong), transparent); }
+
+/* ----------------------------- social ----------------------------- */
+
+.social {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.provider {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 12px;
+  border-radius: var(--r-sm);
+  background: rgba(1, 13, 11, 0.34);
+  box-shadow: inset 0 0 0 1px var(--hair-strong);
+  font-size: 14px;
+  color: var(--pearl-dim);
+  transition: background 0.4s var(--ease-soft), box-shadow 0.4s var(--ease-soft),
+    transform 0.35s var(--ease), color 0.4s var(--ease-soft);
+}
+
+.provider:hover {
+  background: rgba(216, 180, 92, 0.07);
+  box-shadow: inset 0 0 0 1px var(--hair-brass);
+  color: var(--pearl);
+  transform: translateY(-1px);
+}
+
+/* ------------------------- password meter ------------------------- */
+
+.meter {
+  margin-top: 12px;
+}
+
+.track {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+}
+
+.track i {
+  height: 3px;
+  border-radius: var(--r-pill);
+  background: var(--hair-strong);
+  transition: background 0.5s var(--ease-soft), box-shadow 0.5s var(--ease-soft);
+}
+
+.track i[data-on] {
+  background: var(--tone, var(--brass));
+  box-shadow: 0 0 10px -2px var(--tone, var(--brass));
+}
+
+.meterLabel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 9px;
+  font-size: 12px;
+  color: var(--sage-faint);
+}
+
+.meterLabel b {
+  font-weight: 400;
+  color: var(--tone, var(--brass));
+}
+
+/* ------------------------------ fine ------------------------------ */
+
+.fine {
+  margin-top: 20px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--sage-faint);
+  text-align: center;
+}
+
+.fine a {
+  color: var(--sage);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.34s var(--ease-soft);
+}
+
+.fine a:hover { color: var(--brass-hi); }
+
+/* --------------------------- brand aside --------------------------- */
+
+.quote {
+  font-family: var(--display);
+  font-size: clamp(27px, 2.9vw, 36px);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.24;
+  letter-spacing: -0.01em;
+  color: var(--pearl);
+  text-wrap: pretty;
+}
+
+.quote em {
+  font-style: italic;
+  color: var(--brass-hi);
+}
+
+.cite {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 26px;
+}
+
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--raise);
+  font-family: var(--display);
+  font-size: 16px;
+  color: var(--brass-hi);
+}
+
+.cite div { display: grid; }
+.cite b { font-size: 14px; font-weight: 400; color: var(--pearl-dim); }
+.cite span { font-size: 12.5px; color: var(--sage-faint); }
+
+@media (max-width: 420px) {
+  .social { grid-template-columns: 1fr; }
+  .pair { grid-template-columns: 1fr; }
+}

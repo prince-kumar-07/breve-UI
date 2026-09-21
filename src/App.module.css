@@ -1,0 +1,24 @@
+.page {
+  position: relative;
+  isolation: isolate;
+  min-height: 100%;
+  /* One quiet gradient, not a stack of them — the ground stays a ground. */
+  background: linear-gradient(180deg, var(--deep) 0%, #042a23 46%, var(--deep) 100%);
+}
+
+.skip {
+  position: absolute;
+  left: -9999px;
+  top: 12px;
+  z-index: 60;
+  padding: 11px 20px;
+  border-radius: var(--r-xs);
+  background: var(--brass);
+  color: #14291f;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.skip:focus {
+  left: 16px;
+}

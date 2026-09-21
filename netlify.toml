@@ -1,0 +1,11 @@
+# Build settings for Git-based deploys. The redirect and header rules live in
+# public/_redirects and public/_headers instead, so that they are copied into
+# dist/ and keep working for drag-and-drop deploys too.
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  # Vite 8 requires ^20.19.0 || >=22.12.0.
+  NODE_VERSION = "22"

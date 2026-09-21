@@ -1,0 +1,180 @@
+.closing {
+  position: relative;
+  overflow: clip;
+  padding-block: clamp(90px, 12vw, 140px);
+  text-align: center;
+}
+
+.glow {
+  position: absolute;
+  z-index: -1;
+  bottom: -40%;
+  left: 50%;
+  width: min(1000px, 120vw);
+  height: 680px;
+  margin-left: calc(min(1000px, 120vw) / -2);
+  pointer-events: none;
+  background: radial-gradient(46% 44% at 50% 60%, rgba(216, 180, 92, 0.1), transparent 72%);
+}
+
+.inner { composes: shell from "./Shared.module.css"; }
+
+.eyebrow {
+  composes: eyebrow reveal from "./Shared.module.css";
+}
+
+.eyebrowIn { composes: revealIn from "./Shared.module.css"; }
+
+.heading {
+  composes: heading reveal from "./Shared.module.css";
+  max-width: 17ch;
+  margin-top: 18px;
+  margin-inline: auto;
+  text-align: center;
+  transition-delay: 0.06s;
+}
+
+.headingIn { composes: revealIn from "./Shared.module.css"; }
+
+/* Reveals on opacity only: `transform` is owned by the magnetic hook, and
+   two authors for one property is how a button starts twitching. */
+.button {
+  display: inline-block;
+  margin-top: 32px;
+  padding: 15px 34px;
+  border-radius: var(--r-sm);
+  background: var(--brass);
+  color: #14291f;
+  font-size: 15px;
+  font-weight: 500;
+  opacity: 0;
+  transform: translate3d(var(--mx, 0px), var(--my, 0px), 0);
+  transition: opacity 0.5s var(--ease-soft) 0.1s, transform 0.5s var(--ease-spring), background 0.25s;
+}
+
+.buttonIn { opacity: 1; }
+.button:hover { background: var(--brass-hi); }
+
+.reassure {
+  composes: reveal from "./Shared.module.css";
+  margin-top: 18px;
+  font-size: 13px;
+  color: var(--sage-faint);
+  transition-delay: 0.2s;
+}
+
+.reassureIn { composes: revealIn from "./Shared.module.css"; }
+
+/* ------------------------------ base ------------------------------ */
+
+.base {
+  border-top: 1px solid var(--hair);
+}
+
+.baseInner {
+  composes: shell from "./Shared.module.css";
+  display: grid;
+  grid-template-columns: 1.5fr repeat(3, 1fr);
+  gap: clamp(28px, 5vw, 56px);
+  padding-block: clamp(44px, 6vw, 64px) 36px;
+}
+
+.brand { max-width: 30ch; }
+
+.mark {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mark span {
+  font-family: var(--display);
+  font-size: 21px;
+  font-weight: 500;
+  color: var(--pearl);
+}
+
+.brand p {
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--sage-dim);
+}
+
+.brand .status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 16px;
+  font-size: 12px;
+  color: var(--sage);
+}
+
+.status i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #7fd6a8;
+}
+
+.column h3 {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: var(--eyebrow-track);
+  text-transform: uppercase;
+  color: var(--brass);
+}
+
+.column ul {
+  display: grid;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.column a {
+  font-size: 13.5px;
+  color: var(--sage-dim);
+  transition: color 0.3s var(--ease-soft);
+}
+
+.column a:hover { color: var(--pearl); }
+
+.rule {
+  composes: shell from "./Shared.module.css";
+}
+
+.rule::after {
+  content: "";
+  display: block;
+  height: 1px;
+  background: var(--hair);
+}
+
+.fine {
+  composes: shell from "./Shared.module.css";
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding-block: 22px 40px;
+  font-size: 12px;
+  color: var(--sage-faint);
+}
+
+.legal {
+  display: flex;
+  gap: 22px;
+  flex-wrap: wrap;
+}
+
+.legal a { transition: color 0.3s var(--ease-soft); }
+.legal a:hover { color: var(--pearl); }
+
+@media (max-width: 860px) {
+  .baseInner { grid-template-columns: 1fr 1fr; }
+  .brand { grid-column: 1 / -1; max-width: none; }
+}
+
+@media (max-width: 520px) {
+  .baseInner { grid-template-columns: 1fr; }
+}

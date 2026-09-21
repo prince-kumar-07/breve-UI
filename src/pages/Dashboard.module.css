@@ -1,0 +1,303 @@
+.page {
+  min-height: 100vh;
+  padding-top: 96px;
+}
+
+.shell {
+  composes: shell from "../components/Shared.module.css";
+  padding-bottom: 100px;
+}
+
+.top {
+  margin-bottom: 36px;
+}
+
+.eyebrow {
+  composes: eyebrow from "../components/Shared.module.css";
+}
+
+.headingRow {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.heading {
+  composes: heading from "../components/Shared.module.css";
+  margin-top: 12px;
+  font-size: clamp(28px, 3.6vw, 42px);
+}
+
+.count {
+  font-size: 13px;
+  color: var(--sage-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ------------------------------ form ------------------------------ */
+
+.form {
+  padding: 22px 24px;
+  margin-bottom: 40px;
+  border-radius: var(--r-lg);
+  background: var(--mid);
+  box-shadow: inset 0 0 0 1px var(--hair);
+}
+
+.formRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.formField { flex: 1 1 auto; min-width: 0; }
+
+.create {
+  flex: 0 0 auto;
+  padding: 15px 22px;
+  border-radius: var(--r-sm);
+  background: var(--brass);
+  color: #14291f;
+  font-size: 14.5px;
+  font-weight: 500;
+  transition: background 0.25s var(--ease-soft), opacity 0.25s, transform 0.2s var(--ease);
+}
+
+.create:hover:not(:disabled) { background: var(--brass-hi); }
+.create:active:not(:disabled) { transform: translateY(1px); }
+.create:disabled { opacity: 0.55; cursor: default; }
+
+.advancedToggle {
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--sage-dim);
+  transition: color 0.25s var(--ease-soft);
+}
+
+.advancedToggle:hover { color: var(--brass-hi); }
+
+.advancedRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 14px;
+  animation: dropIn 0.25s var(--ease);
+}
+
+@keyframes dropIn {
+  from { opacity: 0; transform: translate3d(0, -6px, 0); }
+  to { opacity: 1; transform: none; }
+}
+
+.plainLabel {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 12px;
+  color: var(--sage-dim);
+}
+
+/* Matches Field's own .shell exactly — sitting right beside the
+   passphrase Field, a mismatched background read as a hole in the form. */
+.dateInput {
+  width: 100%;
+  height: 54px;
+  padding: 0 15px;
+  border-radius: var(--r-md);
+  background: var(--mid);
+  box-shadow: inset 0 0 0 1px var(--hair-strong);
+  color: var(--pearl);
+  font-size: 14.5px;
+  font-family: inherit;
+  transition: background 0.3s var(--ease-soft), box-shadow 0.3s var(--ease-soft);
+}
+
+.dateInput:focus {
+  background: var(--panel);
+  box-shadow: inset 0 0 0 1px var(--hair-brass-lit);
+  outline: none;
+}
+
+.formError {
+  margin-top: 12px;
+  font-size: 13px;
+  color: #e8a88b;
+  animation: dropIn 0.25s var(--ease);
+}
+
+/* ------------------------------ empty / skeleton ------------------------------ */
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 64px 0;
+  text-align: center;
+  font-size: 14.5px;
+  color: var(--sage-faint);
+}
+
+.emptyIcon {
+  color: var(--brass);
+  opacity: 0.55;
+}
+
+.skeletonRow {
+  display: grid;
+  grid-template-columns: 1.6fr auto auto 1.4fr;
+  align-items: center;
+  gap: 18px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--hair);
+}
+
+.skeletonMain { display: grid; gap: 8px; }
+
+.skeletonBar,
+.skeletonPill {
+  display: block;
+  height: 12px;
+  border-radius: var(--r-xs);
+  background: var(--hair-strong);
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+.skeletonPill { width: 58px; height: 20px; border-radius: var(--r-pill); }
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* ------------------------------ list ------------------------------ */
+
+.list {
+  border-top: 1px solid var(--hair);
+}
+
+.row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.6fr auto auto 1.4fr;
+  align-items: center;
+  gap: 18px;
+  padding: 18px 14px;
+  margin-inline: -14px;
+  border-radius: var(--r-md);
+  border-bottom: 1px solid var(--hair);
+  transition: background 0.3s var(--ease-soft);
+  opacity: 0;
+  animation: rowIn 0.4s var(--ease) forwards;
+  animation-delay: calc(min(var(--i, 0), 10) * 40ms);
+}
+
+@keyframes rowIn {
+  from { opacity: 0; transform: translate3d(0, 8px, 0); }
+  to { opacity: 1; transform: none; }
+}
+
+.row:hover { background: rgba(240, 236, 226, 0.02); }
+
+/* A brief brass wash on a row that just landed — confirms the click
+   actually worked, beyond the list simply changing shape. */
+.rowFresh { animation: rowIn 0.4s var(--ease) forwards, flash 1.8s var(--ease-soft); }
+
+@keyframes flash {
+  0% { background: rgba(216, 180, 92, 0.14); }
+  100% { background: transparent; }
+}
+
+.rowMain { min-width: 0; }
+
+.rowShort {
+  font-family: var(--display);
+  font-size: 18px;
+  color: var(--brass-hi);
+  transition: color 0.25s var(--ease-soft);
+}
+
+.rowShort:hover { color: var(--brass); text-decoration: underline; text-underline-offset: 3px; }
+
+.rowLong {
+  margin-top: 3px;
+  font-size: 13px;
+  color: var(--sage-faint);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pill {
+  padding: 4px 11px;
+  border-radius: var(--r-pill);
+  font-size: 11.5px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.pillOn { background: rgba(127, 214, 168, 0.12); color: #a8e5c4; }
+.pillOff { background: rgba(157, 181, 170, 0.12); color: var(--sage); }
+.pillExpired { background: rgba(232, 168, 139, 0.12); color: #e8a88b; }
+.pillLocked { background: rgba(216, 180, 92, 0.12); color: var(--brass-hi); }
+
+.rowClicks {
+  font-variant-numeric: tabular-nums;
+  font-size: 14.5px;
+  color: var(--pearl);
+  white-space: nowrap;
+}
+
+.rowClicks small { font-size: 12px; color: var(--sage-faint); }
+
+.rowActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.rowBtn {
+  padding: 6px 13px;
+  border-radius: var(--r-pill);
+  box-shadow: inset 0 0 0 1px var(--hair);
+  font-size: 12.5px;
+  color: var(--sage);
+  transition: color 0.2s var(--ease-soft), box-shadow 0.2s var(--ease-soft), background 0.2s var(--ease-soft);
+}
+
+.rowBtn:hover { color: var(--pearl); box-shadow: inset 0 0 0 1px var(--hair-strong); }
+
+.rowBtnDanger:hover { color: #e8a88b; box-shadow: inset 0 0 0 1px rgba(232, 168, 139, 0.4); }
+
+.rowBtnConfirming,
+.rowBtnConfirming:hover {
+  color: #e8a88b;
+  background: rgba(232, 168, 139, 0.12);
+  box-shadow: inset 0 0 0 1px rgba(232, 168, 139, 0.5);
+}
+
+.more {
+  display: block;
+  margin: 28px auto 0;
+  padding: 11px 24px;
+  border-radius: var(--r-pill);
+  box-shadow: inset 0 0 0 1px var(--hair);
+  font-size: 13.5px;
+  color: var(--sage);
+  transition: color 0.25s var(--ease-soft);
+}
+
+.more:hover { color: var(--pearl); }
+
+@media (max-width: 780px) {
+  .row,
+  .skeletonRow { grid-template-columns: 1fr; }
+  .rowActions { justify-content: flex-start; }
+  .advancedRow { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .row { opacity: 1; animation: none; }
+  .rowFresh { animation: none; }
+}
