@@ -13,4 +13,29 @@
 # public/ is copied into dist/, so the rule travels with the build and applies
 # whether you deploy from Git or drag the dist folder onto Netlify.
 
+# Client-side routes that have no matching file on disk — listed explicitly,
+# and before the short-link proxy below, so a short code that happens to
+# collide with one of these (e.g. someone's code is literally "login") can
+# never shadow the real app route.
+/login               /index.html   200
+/signup              /index.html   200
+/forgot-password     /index.html   200
+/reset-password/*    /index.html   200
+/dashboard           /index.html   200
+/dashboard/*         /index.html   200
+/pages               /index.html   200
+/pages/*             /index.html   200
+
+# Short links & bio pages: bre.ve/<code> is owned entirely by the Express
+# server — it renders the redirect itself (plus the expired/passphrase/404
+# pages, the passphrase-unlock endpoint, and bio-page open-link tracking),
+# no React involved. Proxying (200, not a 3xx redirect) here means the
+# address people actually see and share is this frontend's own domain —
+# which stays up even when the Render free-tier backend is asleep or
+# between deploys — while the real lookup/click-tracking/expiry logic still
+# runs on the backend. Netlify makes this request itself, so there's no
+# CORS involved. Keep this in sync with SHORT_DOMAIN on the server.
+/:code/*   https://breve-server.onrender.com/:code/:splat   200
+/:code     https://breve-server.onrender.com/:code          200
+
 /*    /index.html   200
